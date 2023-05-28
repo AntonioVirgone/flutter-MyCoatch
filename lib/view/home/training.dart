@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_coatch/properties.dart';
-import 'package:my_coatch/training_detail.dart';
+
+import '../../model/training_argument.dart';
 
 class TrainingCardsSection extends StatelessWidget {
   const TrainingCardsSection({
@@ -97,9 +98,10 @@ class TrainingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) => const TrainingDetail()),
+          '/example_list',
+          arguments: TrainingArgument(title, "hello world", bgColor),
         );
       },
       child: Container(
