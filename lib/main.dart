@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_coatch/header.dart';
-import 'package:my_coatch/other.dart';
-import 'package:my_coatch/properties.dart';
-import 'package:my_coatch/training.dart';
+import 'package:my_coatch/view/training/example_list.dart';
+import 'view/training/training_detail.dart';
+import 'view/home/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,19 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/training_detail': (context) => const TrainingDetail(),
+        '/example_list': (context) => ExampleList(),
+      },
       home: Builder(
-        builder: (BuildContext builderContext) => Container(
-          padding: const EdgeInsets.only(top: 50),
-          decoration: const BoxDecoration(color: bgColorAppDark),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              HeaderSection(),
-              TrainingCardsSection(),
-              OtherCardSection(),
-            ],
-          ),
-        ),
+        builder: (BuildContext builderContext) => const Home(),
       ),
     );
   }
