@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../model/training_argument.dart';
 import '../../properties.dart';
@@ -13,9 +16,19 @@ class ExampleList extends StatelessWidget {
 
   ExampleList({super.key});
 
+  Future<void> readJson() async {
+    final String response =
+    await rootBundle.loadString('resources/sample.json');
+    final data = await json.decode(response);
+
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as TrainingArgument;
+
+    readJson();
 
     return Scaffold(
       appBar: AppBar(
@@ -43,6 +56,9 @@ class ExampleList extends StatelessWidget {
 
           return ListTile(
             title: item.buildContent(context, args.bgColor),
+            onTap: () {
+              print("tapped");
+            },
           );
         },
       ),
@@ -83,32 +99,37 @@ class MessageItem implements ListItem {
   MessageItem(this.sender, this.body);
 
   @override
-  Widget buildContent(BuildContext context, Color bgColor) => Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), // <= No more error here :)
-          color: bgColor,
-        ),
-        child: Column(
-          children: [
-            Text(
-              sender,
-              style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+  Widget buildContent(BuildContext context, Color bgColor) => GestureDetector(
+        onTap: () {
+          print(body);
+        },
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), // <= No more error here :)
+            color: bgColor,
+          ),
+          child: Column(
+            children: [
+              Text(
+                sender,
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Text(
-              sender,
-              style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+              Text(
+                sender,
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }

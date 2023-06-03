@@ -100,7 +100,7 @@ class TrainingCard extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          '/example_list',
+          '/example_json_list',
           arguments: TrainingArgument(title, "hello world", bgColor),
         );
       },
